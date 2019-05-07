@@ -1,0 +1,41 @@
+﻿@model IEnumerable<SistemaDeSupermercado.Models.Produto>
+@{
+    Layout = "~/Views/Shared/_PainelAdministrador.cshtml";
+}
+<h3>@ViewData["Title"]</h3>
+<hr />
+<a asp-action="NovoProduto" asp-controller="Gestao" class="btn btn-success">Criar novo produto</a>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-10">
+        <table id="categorias" class="table table-responsive-lg table-hover">
+            <thead class="alert-success">
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Nome)</th>
+                </tr>
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Id)</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>@Html.DisplayFor(model => item.Id)</td>
+                        <td>@Html.DisplayFor(model => item.Nome)</td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+    </div>
+</div>
+
+@{
+    <script>
+        $(document).ready(function () {
+            $('#categorias').DataTable();
+        });
+    </script>
+}

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<SistemaDeSupermercado.Models.Categoria>
+@{
+    Layout = "~/Views/Shared/_PainelAdministrador.cshtml";
+}
+<h3>@ViewData["Title"]</h3>
+<hr />
+<a asp-action="NovaCategoria" asp-controller="Gestao" class="btn btn-success">Criar nova categoria</a>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-10">
+        <table id="categorias" class="table table-hover">
+            <thead class="alert-success">
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Id)</th>
+                    <th>@Html.DisplayNameFor(model => model.Nome)</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            @foreach (var categoria in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>@Html.DisplayFor(model => categoria.Id)</td>
+                        <td>@Html.DisplayFor(model => categoria.Nome)</td>
+                        <td>
+                            <a class="btn btn-warning" asp-action="EditarCategoria" asp-controller="Gestao" asp-route-id="@categoria.Id">Editar</a>
+                            <form asp-action="Deletar" asp-controller="Categoria" class="d-inline">
+                                <input type="hidden" id="value" class="btn btn-danger" asp-action="Deletar" name="id" value="@categoria.Id" />
+                                    <button id="button" onclick="mudarNome();" class="btn btn-danger">Ativar</button>
+                            </form>
+                        </td>
+                    </tr>
+
+                </tbody>
+            }
+        </table>
+    </div>
+</div>
+
+
+    <script>
+    function mudarNome() {
+        if (document.getElementById("value").onclick() == true {
+                document.getElementById("button").value = "Inativar";
+            }
+            else {
+                document.getElementById("button").value = "Ativo";
+            }
+        }
+    </script>

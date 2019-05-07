@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SistemaDeSupermercado.Models.Fornecedor>
+@{
+    Layout = "~/Views/Shared/_PainelAdministrador.cshtml";
+    ViewData["Title"] = "Fornecedores";
+}
+<h3>@ViewData["Title"]</h3>
+<hr />
+<a asp-action="NovoFornecedor" asp-controller="Gestao" class="btn btn-success">Criar novo fornecedor</a>
+<hr />
+
+<div class="row">
+    <div class="col-md-10">
+        <table class="table table-responsive-lg table-hover">
+            <thead class="alert-success">
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Nome)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Email)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Telefone)</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+        <tbody>
+            <tr>
+                <td>@Html.DisplayFor(model => item.Nome)</td>
+                <td>@Html.DisplayFor(model => item.Email)</td>
+                <td>@Html.DisplayFor(model => item.Telefone)</td>
+            </tr>
+        </tbody>
+            }
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/index.js"></script>
+}
+
+
