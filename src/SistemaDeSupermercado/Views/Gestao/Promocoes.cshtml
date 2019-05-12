@@ -1,0 +1,46 @@
+﻿@model IEnumerable<SistemaDeSupermercado.Models.Promocao>
+@{
+    Layout = "~/Views/Shared/_PainelAdministrador.cshtml";
+    ViewData["Title"] = "Promoções";
+}
+<h3>@ViewData["Title"]</h3>
+<hr />
+<a asp-action="NovaPromocao" asp-controller="Gestao" class="btn btn-success">Criar nova promoção</a>
+<hr />
+
+<div class="row">
+    <div class="col-md-10">
+        <table class="table table-responsive-lg table-hover">
+            <thead class="alert-success">
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Nome)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Produto.Nome)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Porcentegem)</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            @foreach (var promocao in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>@Html.DisplayFor(model => promocao.Nome)</td>
+                        <td>@Html.DisplayFor(model => promocao.Produto.Nome)</td>
+                        <td>@Html.DisplayFor(model => promocao.Porcentegem)</td>
+                        <td>
+                            <a class="btn btn-warning" asp-action="EditarPromocao" asp-route-id="@promocao.Id">Editar</a>
+                            <form asp-action="Deletar" asp-controller="Promocao" class="d-inline">
+                                <input type="hidden" name="id" id="id" value="@promocao.Id" />
+                                <button class="btn btn-danger">Deletar</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+}
+
+

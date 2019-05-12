@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SistemaDeSupermercado.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NToastNotify;
+using FluentValidation;
+using SistemaDeSupermercado.Models;
+using SistemaDeSupermercado.Validator;
+using SistemaDeSupermercado.Models.DTO;
+using FluentValidation.AspNetCore;
 
 namespace SistemaDeSupermercado
 {
@@ -42,9 +43,15 @@ namespace SistemaDeSupermercado
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddNToastNotifyNoty();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            
+            services.AddAuthorization(options => options.AddPolicy("PossuiPerfil", policy => policy.RequireClaim("Profile", "Peril")));
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+              .AddNToastNotifyToastr()
+              .AddFluentValidation();
+
+            services.AddTransient<IValidator<CategoriaDto>, CategoriaValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,7 +72,7 @@ namespace SistemaDeSupermercado
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseNToastNotify();
             app.UseAuthentication();
 
             app.UseMvc(routes =>

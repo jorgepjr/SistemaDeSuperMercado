@@ -28,7 +28,7 @@
                             <a class="btn btn-warning" asp-action="EditarCategoria" asp-controller="Gestao" asp-route-id="@categoria.Id">Editar</a>
                             <form asp-action="Deletar" asp-controller="Categoria" class="d-inline">
                                 <input type="hidden" id="value" class="btn btn-danger" asp-action="Deletar" name="id" value="@categoria.Id" />
-                                    <button id="button" onclick="mudarNome();" class="btn btn-danger">Ativar</button>
+                                    <button class="btn btn-danger">Deletar</button>
                             </form>
                         </td>
                     </tr>
@@ -38,15 +38,3 @@
         </table>
     </div>
 </div>
-
-
-    <script>
-    function mudarNome() {
-        if (document.getElementById("value").onclick() == true {
-                document.getElementById("button").value = "Inativar";
-            }
-            else {
-                document.getElementById("button").value = "Ativo";
-            }
-        }
-    </script>

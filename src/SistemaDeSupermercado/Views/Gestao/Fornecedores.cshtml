@@ -16,24 +16,31 @@
                     <th scope="col">@Html.DisplayNameFor(model => model.Nome)</th>
                     <th scope="col">@Html.DisplayNameFor(model => model.Email)</th>
                     <th scope="col">@Html.DisplayNameFor(model => model.Telefone)</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
-            @foreach (var item in Model)
+            @foreach (var fornecedor in Model)
             {
-        <tbody>
-            <tr>
-                <td>@Html.DisplayFor(model => item.Nome)</td>
-                <td>@Html.DisplayFor(model => item.Email)</td>
-                <td>@Html.DisplayFor(model => item.Telefone)</td>
-            </tr>
-        </tbody>
+                <tbody>
+                    <tr>
+                        <td>@Html.DisplayFor(model => fornecedor.Nome)</td>
+                        <td>@Html.DisplayFor(model => fornecedor.Email)</td>
+                        <td>@Html.DisplayFor(model => fornecedor.Telefone)</td>
+                        <td>
+                            <a class="btn btn-warning" asp-action="EditarFornecedor" asp-route-id="@fornecedor.Id">Editar</a>
+                            <form asp-action="Deletar" asp-controller="Fornecedor" class="d-inline">
+                                <input type="hidden" name="id" id="id" value="@fornecedor.Id" />
+                                <button class="btn btn-danger">Deletar</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
             }
         </table>
     </div>
 </div>
 
 @section Scripts{
-    <script src="~/js/index.js"></script>
 }
 
 

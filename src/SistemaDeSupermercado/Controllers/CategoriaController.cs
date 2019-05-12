@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
 using SistemaDeSupermercado.Data;
@@ -34,9 +31,11 @@ namespace SistemaDeSupermercado.Controllers
         {
             if (ModelState.IsValid)
             {
-                Categoria categoria = new Categoria();
-                categoria.Nome = categoriaDto.Nome;
-                categoria.Status = true;
+                var categoria = new Categoria {
+                    Id = categoriaDto.Id,
+                    Nome = categoriaDto.Nome,
+                    Status = true
+                };
 
                 context.Add(categoria);
                 context.SaveChanges();
