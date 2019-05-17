@@ -24,9 +24,11 @@ namespace SistemaDeSupermercado.Models.DTO
 
         [Required(ErrorMessage ="Preço de custo do produto é obrigatório")]
         public float PrecoDeCusto { get; set; }
+        public string PrecoDeCustoString { get; set; }
 
         [Required(ErrorMessage ="Preço de venda do produto é obrigatório")]
         public float PrecoDeVenda { get; set; }
+        public string PrecoDeVendaString { get; set; }
 
         [Required(ErrorMessage ="Medição de venda é obrigatória")]
         [Range(0, 2, ErrorMessage ="Medição inválida")]

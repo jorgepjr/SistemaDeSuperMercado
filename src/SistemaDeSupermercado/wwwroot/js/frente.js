@@ -1,29 +1,17 @@
-﻿
+﻿//Declaração de variáveis
 var enderecoProduto = "https://localhost:44341/Produto/Pesquisar/";
 var produto;
 var compra = [];
+var __totalVenda__ = 0.0;
 
+//Início
+atualizarTotal();
 
 //Funcoes
-$("#produtoForm").on("submit", function (event) {
-    event.preventDefault();
-    var produtoParaTable = produto;
-    var qtd = $("#campoQuantidade").val();
-
-    console.log(produtoParaTable);
-    console.log(qtd);
-
-    //var produto = undefined;
-    adicionarNaTable(produtoParaTable, qtd);
-    zerarFormulario();
-});
-
-function zerarFormulario() {
-    $("#campoNome").val("");
-    $("#campoCategoria").val("");
-    $("#campoFornecedor").val("");
-    $("#campoPreco").val("");
-    $("#campoQuantidade").val("");
+function atualizarTotal() {
+    $("#finalizarCompra").click(function () {
+        $("#totalVenda").html(__totalVenda__);
+    });
 }
 
 function preencherFormulario(dadosDoProduto) {
@@ -33,12 +21,23 @@ function preencherFormulario(dadosDoProduto) {
     $("#campoPreco").val(dadosDoProduto.precoDeVenda);
 }
 
+function zerarFormulario() {
+    $("#campoNome").val("");
+    $("#campoCategoria").val("");
+    $("#campoFornecedor").val("");
+    $("#campoPreco").val("");
+    $("#campoQuantidade").val("");
+}
+
 function adicionarNaTable(prod, quant) {
     var produtoTemp = {};
 
     Object.assign(produtoTemp, produto);
 
-    compra.push(produtoTemp)
+    var venda = { produto: produtoTemp, quantidade: quant, subtotal: produtoTemp.precoDeVenda * quant };
+    __totalVenda__ += venda.subtotal;
+
+    compra.push(venda);
 
     $("#vendas").append(`
 <tr>
@@ -53,6 +52,18 @@ function adicionarNaTable(prod, quant) {
 `);
 }
 
+$("#produtoForm").on("submit", function (event) {
+    event.preventDefault();
+    var produtoParaTable = produto;
+    var qtd = $("#campoQuantidade").val();
+
+    console.log(produtoParaTable);
+    console.log(qtd);
+
+    //var produto = undefined;
+    adicionarNaTable(produtoParaTable, qtd);
+    zerarFormulario();
+});
 
 
 

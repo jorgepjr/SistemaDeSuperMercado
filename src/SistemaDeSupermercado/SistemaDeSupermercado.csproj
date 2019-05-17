@@ -23,4 +23,9 @@
     <PackageReference Include="NToastNotify" Version="5.0.10" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,25 @@
+﻿@model SistemaDeSupermercado.Models.Estoque
+
+@{
+    Layout = "~/Views/Shared/_PainelAdministrador.cshtml";
+
+    ViewData["Title"] = "Novo estoque";
+}
+
+<h3>@ViewData["Title"]</h3>
+<hr />
+<form class="form-horizontal" asp-action="Salvar" asp-controller="Estoque">
+    <div class="form-group">
+        <label class="control-label">Produtos</label>
+        <select asp-for="ProdutoId" asp-items='@(new SelectList(@ViewBag.Produtos, "Id", "Nome"))' class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Quantidade">Quantidade</label>
+        <input asp-for="Quantidade" placeholder="100" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Salvar" class="btn btn-primary" />
+    </div>
+</form>
+
+

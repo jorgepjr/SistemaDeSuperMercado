@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Globalization;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NToastNotify;
@@ -29,8 +30,8 @@ namespace SistemaDeSupermercado.Controllers
                     Nome = produtoDto.Nome,
                     Categoria = context.Categoria.First(categoria => categoria.Id == produtoDto.CategoriaId),
                     Fornecedor = context.Fornecedor.First(fornecedor => fornecedor.Id == produtoDto.FornecedorId),
-                    PrecoDeCusto = produtoDto.PrecoDeCusto,
-                    PrecoDeVenda = produtoDto.PrecoDeVenda,
+                    PrecoDeCusto = float.Parse(produtoDto.PrecoDeCustoString, CultureInfo.InvariantCulture.NumberFormat),
+                    PrecoDeVenda = float.Parse(produtoDto.PrecoDeVendaString, CultureInfo.InvariantCulture.NumberFormat),
                     Medicao = produtoDto.Medicao,
                     Status = true
                 };

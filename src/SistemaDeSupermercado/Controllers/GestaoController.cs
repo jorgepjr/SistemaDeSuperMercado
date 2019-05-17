@@ -152,5 +152,22 @@ namespace SistemaDeSupermercado.Controllers
             return View(PromocaoView);
 
         }
+
+        public IActionResult Estoque()
+        {
+            var listaDeEstoques = context.Estoque.Include(x => x.Produto).ToList();
+            return View(listaDeEstoques);
+        }
+
+        public IActionResult NovoEstoque()
+        {
+            ViewBag.Produtos = context.Produto.ToList();
+            return View();
+        }
+
+        public IActionResult EditarEstoque()
+        {
+            return View();
+        }
     }
 }
