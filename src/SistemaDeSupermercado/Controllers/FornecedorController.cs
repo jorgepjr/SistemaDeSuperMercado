@@ -32,7 +32,8 @@ namespace SistemaDeSupermercado.Controllers
 
                 context.Add(fornecedor);
                 context.SaveChanges();
-                return RedirectToAction("Fornecedores", "Gestao");
+                ViewData["fornecedor"] = fornecedor.Id;
+                return RedirectToAction("DetalharFornecedor", "Gestao", new { id = fornecedor.Id});
 
             }
             else
@@ -53,6 +54,26 @@ namespace SistemaDeSupermercado.Controllers
 
                 context.SaveChanges();
                 return RedirectToAction("Fornecedores", "Gestao");
+            }
+            else
+            {
+
+                return View("../Gestao/EditarFornecedor");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Detalhar(FornecedorDto fornecedorDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var fornecedor = context.Fornecedor.First(f => f.Id == fornecedorDto.Id);
+                fornecedor.Nome = fornecedorDto.Nome;
+                fornecedor.Email = fornecedorDto.Email;
+                fornecedor.Telefone = fornecedorDto.Telefone;
+
+                context.SaveChanges();
+                return RedirectToAction("DetalharFornecedor", "Gestao");
             }
             else
             {

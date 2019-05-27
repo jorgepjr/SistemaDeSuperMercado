@@ -1,5 +1,7 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NToastNotify;
@@ -89,6 +91,17 @@ namespace SistemaDeSupermercado.Controllers
             return RedirectToAction("Produtos", "Gestao");
         }
 
+        //// POST: Item/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    var produto = await context.Produto.FindAsync(id);
+        //    context.Produto.Remove(produto);
+        //    await context.SaveChangesAsync();
+        //    return RedirectToAction("Produto", "Gestao");
+        //}
+
         [HttpPost]
         public IActionResult Pesquisar(int id)
         {
@@ -97,6 +110,34 @@ namespace SistemaDeSupermercado.Controllers
                 var produto = context.Produto.Where(p => p.Status == true)
                     .Include(p => p.Categoria)
                     .Include(p => p.Fornecedor).First(p => p.Id == id);
+                if (produto != null)
+                {
+                    var estoque = context.Estoque.First(e => e.Produto.Id == produto.Id);
+                    if (estoque == null)
+                    {
+                        produto = null;
+                    }
+                }
+
+                if (produto != null)
+                {
+                    Promocao promocao;
+
+                    try
+                    {
+                        promocao = context.Promocao.First(p => p.Produto.Id == produto.Id && p.Status == true);
+                    }
+                    catch (Exception e)
+                    {
+                        promocao = null;
+
+                    }
+
+                    if (promocao != null)
+                    {
+                        produto.PrecoDeVenda -= (produto.PrecoDeVenda * (promocao.Porcentegem / 100));
+                    }
+                }
                 if (produto != null)
                 {
                     Response.StatusCode = 200;
@@ -113,6 +154,19 @@ namespace SistemaDeSupermercado.Controllers
                 Response.StatusCode = 404;
                 return Json(null);
             }
+        }
+
+        [HttpPost]
+        public IActionResult GerarVenda([FromBody] SaidaDto[] dados)
+        {
+            return Ok(dados);
+        }
+
+        public class SaidaDto
+        {
+            public int produto;
+            public int quantidade;
+            public float subTotal;
         }
     }
 }

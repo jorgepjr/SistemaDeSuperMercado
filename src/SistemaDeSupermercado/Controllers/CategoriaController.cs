@@ -40,7 +40,7 @@ namespace SistemaDeSupermercado.Controllers
                 context.Add(categoria);
                 context.SaveChanges();
                 toastNotification.AddSuccessToastMessage("Salvo com sucesso!");
-                return RedirectToAction("Categorias", "Gestao");
+                return RedirectToAction("EditarCategoria", "Gestao");
 
             }
             else

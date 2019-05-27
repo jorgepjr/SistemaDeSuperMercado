@@ -1,0 +1,20 @@
+﻿@model SistemaDeSupermercado.Models.Fornecedor
+
+@{
+    Layout = "~/Views/Shared/_PainelAdministrador.cshtml";
+
+    ViewData["Title"] = "Detalhes do fornecedor";
+}
+
+<h3>@ViewData["Title"]</h3>
+<hr>
+<dl class="row">
+    <dt class="col-md-3 col-lg-1 text-md-right"><strong>@Html.DisplayNameFor(model => model.Nome):</strong></dt>
+    <dd class="col-md-8 col-lg-11">@Html.DisplayFor(model => model.Nome)</dd>
+    <dt class="col-md-3 col-lg-1 text-md-right"><strong>@Html.DisplayNameFor(model => model.Email):</strong></dt>
+    <dd class="col-md-8 col-lg-11">@Html.DisplayFor(model => model.Email)</dd>
+    <dt class="col-md-3 col-lg-1 text-md-right"><strong>@Html.DisplayNameFor(model => model.Telefone):</strong></dt>
+    <dd class="col-md-8 col-lg-11">@Html.DisplayFor(model => model.Telefone)</dd>
+</dl>
+    <hr />
+

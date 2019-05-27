@@ -107,18 +107,18 @@
                     <h2>Total: R$ <span id="totalVenda"> </span></h2>
                     <hr>
                     <p>Valor pago:</p>
-                    <input type="number" placeholder="12.76" class="form-control">
+                    <input id="valorPago" type="number" placeholder="12.76" class="form-control">
                     <p>Troco:</p>
-                    <input type="number" placeholder="12.76" disabled class="form-control">
+                    <input id="troco" type="number" placeholder="12.76" disabled class="form-control">
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <div class="posvenda">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                    <div id="posvenda">
+                        <button id="fecharModal" type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
                     </div>
-                    <div class="prevenda">
-                        <button type="button" class="btn btn-success" data-dismiss="modal">Finalizar venda</button>
+                    <div id="prevenda">
+                        <button id="finalizarVenda" type="button" class="btn btn-success">Finalizar venda</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </div>
                 </div>

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NToastNotify;
 using SistemaDeSupermercado.Data;
-using SistemaDeSupermercado.Models;
 using SistemaDeSupermercado.Models.DTO;
 
 namespace SistemaDeSupermercado.Controllers
@@ -52,7 +48,7 @@ namespace SistemaDeSupermercado.Controllers
 
         public IActionResult Fornecedores()
         {
-            var fornecedores = context.Fornecedor.Where(x=>x.Status == true).ToList();
+            var fornecedores = context.Fornecedor.Where(x => x.Status == true).ToList();
 
             return View(fornecedores);
         }
@@ -87,12 +83,12 @@ namespace SistemaDeSupermercado.Controllers
             var produtos = context.Produto
                                 .Include(x => x.Categoria)
                                 .Include(x => x.Fornecedor)
-                                .Where(x=>x.Status == true).ToList();
+                                .Where(x => x.Status == true).ToList();
             return View(produtos);
         }
         public IActionResult EditarProduto(int id)
         {
-            var produto = context.Produto.Include(x=>x.Categoria).Include(x=>x.Fornecedor).First(x => x.Id == id);
+            var produto = context.Produto.Include(x => x.Categoria).Include(x => x.Fornecedor).First(x => x.Id == id);
             ProdutoDto produtoView = new ProdutoDto();
             produtoView.Id = produto.Id;
             produtoView.Nome = produto.Nome;
@@ -129,7 +125,7 @@ namespace SistemaDeSupermercado.Controllers
 
         public IActionResult Promocoes()
         {
-            var promocoes = context.Promocao.Include(x=>x.Produto).Where(x=>x.Status == true).ToList();
+            var promocoes = context.Promocao.Include(x => x.Produto).Where(x => x.Status == true).ToList();
             return View(promocoes);
         }
 
@@ -141,7 +137,7 @@ namespace SistemaDeSupermercado.Controllers
 
         public IActionResult EditarPromocao(int id)
         {
-            var promocao = context.Promocao.Include(x=>x.Produto).First(p => p.Id == id);
+            var promocao = context.Promocao.Include(x => x.Produto).First(p => p.Id == id);
             PromocaoDto PromocaoView = new PromocaoDto();
             PromocaoView.Id = promocao.Id;
             PromocaoView.Nome = promocao.Nome;
@@ -168,6 +164,20 @@ namespace SistemaDeSupermercado.Controllers
         public IActionResult EditarEstoque()
         {
             return View();
+        }
+
+        public IActionResult DetalharFornecedor(int id)
+        {
+            var fornecedor = context.Fornecedor.Find(id);
+
+            return View(fornecedor);
+        }
+
+        public IActionResult Detalhes()
+        {
+            return View(ViewData["fornecedor"]);
+
+
         }
     }
 }

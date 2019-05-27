@@ -46,7 +46,7 @@ namespace SistemaDeSupermercado
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             
-            services.AddAuthorization(options => options.AddPolicy("PossuiPerfil", policy => policy.RequireClaim("Profile", "Peril")));
+            services.AddAuthorization(options => options.AddPolicy("PossuiPerfil", policy => policy.RequireClaim("Profile", "Gerente", "Administrador")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
               .AddNToastNotifyToastr()
               .AddFluentValidation();

@@ -7,6 +7,7 @@ var __totalVenda__ = 0.0;
 //Início
 atualizarTotal();
 
+$("#posvenda").hide();
 //Funcoes
 function atualizarTotal() {
     $("#finalizarCompra").click(function () {
@@ -66,7 +67,6 @@ $("#produtoForm").on("submit", function (event) {
 });
 
 
-
 //Ajax
 $("#pesquisar").click(function () {
     var codProduto = $("#codProduto").val();
@@ -95,4 +95,51 @@ $("#pesquisar").click(function () {
     }).fail(function () {
         alert("Produto inválido!");
     });
+});
+
+//Finalização da venda
+
+$("#finalizarVenda").click(function () {
+    if (__totalVenda__ <= 0) {
+        alert("Compra inválida, nenhum produto adicionado!");
+        return;
+    }
+    var _valorPago = $("#valorPago").val();
+    console.log(typeof _valorPago);
+    if (!isNaN(_valorPago)) {// não é um número
+        _valorPago = parseFloat(_valorPago);
+        if (_valorPago >= __totalVenda__) {
+            $("#posvenda").show();
+            $("#prevenda").hide();
+            $("#valorPago").prop("disabled", true);
+            var _troco = _valorPago - __totalVenda__;
+            $("#troco").val(_troco);
+
+            //Converter Array de obj produto em array Ids
+            compra.forEach(elemento => {
+                elemento.produto = elemento.produto.id;
+            });
+
+            //Enviar dados para o back-end
+
+        } else {
+            alert("valor pago muito baixo!");
+            return;
+        }
+    } else {
+        alert("Valor pago inválido!");
+        return;
+    }
+});
+
+function restaurarModal() {
+    $("#posvenda").hide();
+    $("#prevenda").show();
+    $("#valorPago").prop("disabled", false);
+    $("#troco").val("");
+    $("#valorPago").val("");
+}
+
+$("#fecharModal").click(function () {
+    restaurarModal();
 });
