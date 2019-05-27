@@ -41,7 +41,7 @@ namespace SistemaDeSupermercado.Controllers
                 context.Produto.Add(produto);
                 context.SaveChanges();
                 toastMessage.AddSuccessToastMessage("Produto cadastrado com sucesso!");
-                return RedirectToAction("Produtos", "Gestao");
+                return RedirectToAction("ListaDeProdutos", "Gestao");
             }
 
             else

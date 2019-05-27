@@ -103,6 +103,15 @@ namespace SistemaDeSupermercado.Controllers
 
         }
 
+        public IActionResult ListaDeProdutos()
+        {
+            ViewBag.Categorias = context.Categoria.ToList();
+            ViewBag.Fornecedores = context.Fornecedor.ToList();
+            ViewData["Produtos"] = context.Produto.ToList();
+            return View();
+
+        }
+
         public IActionResult EditarCategoria(int id)
         {
             var categoria = context.Categoria.First(cat => cat.Id == id);

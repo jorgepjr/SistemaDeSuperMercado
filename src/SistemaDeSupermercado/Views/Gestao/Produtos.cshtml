@@ -1,12 +1,10 @@
 ﻿@model IEnumerable<SistemaDeSupermercado.Models.Produto>
 
 @{
-    Layout = "~/Views/Shared/_PainelAdministrador.cshtml";
+    Layout = null;
 }
 <h3>@ViewData["Title"]</h3>
 <hr />
-<a asp-action="NovoProduto" asp-controller="Gestao" class="btn btn-success">Criar novo produto</a>
-
 <hr />
 
 <div class="row">
@@ -53,6 +51,7 @@
                         </td>
 
                         <td>
+                            <a class="btn btn-warning" asp-action="EditarProduto" asp-controller="Gestao" asp-route-id="@item.Id">Editar</a>
                             <input type="hidden" id="idProduto" value="@item.Id" />
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalExcluir" id="deletar">Deletar</button>
 
@@ -114,7 +113,7 @@
         $("#deletar").click(function () {
             var idProduto = $("#idProduto").val();
             $("#getId").val(idProduto);
-            console.log(idProduto);
+            console.log(idProduto);/
         });
 
         $("#editar").click(function () {
